@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -7,6 +8,7 @@ public class AddressBook {
 	FileReader in;
 	FileWriter out;
 	private List<Person> personList;
+	private FlexibleComparator comp = new FlexibleComparator();
 	
 	AddressBook(){
 		personList = new ArrayList<Person>();
@@ -39,8 +41,14 @@ public class AddressBook {
 		return personList.size();
 	}
 	
-//	public List<Person> sortByCountry(){
-//		return personList.sort(new personList<>);
-//	}
+	public void sortByCountry(){
+		comp.setSortBy("Country");
+		Collections.sort(personList, comp);
+	}
+	
+	public void sortByName(){
+		comp.setSortBy("Name");
+		Collections.sort(personList, comp);
+	}
 	
 }

@@ -19,28 +19,30 @@ public class addPerson extends JFrame {
 	private JTextField address;
 	private JTextField country;
 	private JTextField phone;
-
+	//private AddressBookGUI abg;
+	
 	/**
 	 * Launch the application.
 	 */
 	private AddressBook addressBook;
 	
 	addPerson (AddressBook addressBook){
-		this.addressBook = addressBook;
+
+		this.addressBook = addressBook;		
 	}
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					addPerson frame = new addPerson();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					addPerson frame = new addPerson();
+//					frame.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the frame.
@@ -101,7 +103,7 @@ public class addPerson extends JFrame {
 		JButton btnAddPerson = new JButton("Add person");
 		btnAddPerson.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-//				addressBook.addPerson(firstName.getText(), lastName.getText(),address.getText(),country.getText(),phone.getText());
+				addressBook.addPerson(firstName.getText(), lastName.getText(),address.getText(),country.getText(),phone.getText());
 			}
 		});
 		btnAddPerson.setBounds(306, 208, 89, 23);
