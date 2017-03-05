@@ -1,25 +1,20 @@
 import java.awt.EventQueue;
-import java.awt.Panel;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.awt.event.ActionEvent;
-import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JLabel;
-import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 
 public class AddressBookGUI {
 
 	private JFrame frame;
 
-	private addPerson frameAdd;
+	private AddPerson frameAdd;
 	private AddressBook addressBook;
 	private FileSystem fs;
 	private JTable table;
@@ -29,7 +24,7 @@ public class AddressBookGUI {
 			public void run() {
 				try {
 					AddressBookGUI window = new AddressBookGUI();
-					window.frame.setVisible(true);
+					window.getFrame().setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,25 +34,35 @@ public class AddressBookGUI {
 
 	/**
 	 * Create the application.
+	 * @throws IOException 
 	 */
-	public AddressBookGUI() {
-		// addressBook = new AddressBook();
+	public AddressBookGUI() throws IOException {
+		fs = new FileSystem();
+		addressBook = fs.readFile();
 		initialize();
 	}
 
+	public AddressBookGUI(AddressBook addressBook) throws IOException {
+		addressBook = new AddressBook();
+		fs = new FileSystem();
+		
+		initialize();
+	}
 	/**
 	 * Initialize the contents of the frame.
+	 * @throws IOException 
 	 */
-	private void initialize() {
+	private void initialize() throws IOException {
+		addressBook = fs.readFile(); 
 		frame = new JFrame("Address book");
-		frame.setBounds(100, 100, 751, 514);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setVisible(true);
+		getFrame().setBounds(100, 100, 751, 514);
+		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		getFrame().getContentPane().setLayout(null);
+		getFrame().setVisible(true);
 
 		JPanel panel = new JPanel();
 		panel.setBounds(236, 11, 420, 414);
-		frame.getContentPane().add(panel);
+		getFrame().getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -75,76 +80,61 @@ public class AddressBookGUI {
 		JButton btnAddPerson = new JButton("Add person");
 		btnAddPerson.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frameAdd = new addPerson();
-				frame.setVisible(false);
+				frameAdd = new AddPerson(addressBook);
+				getFrame().setVisible(false);
 				frameAdd.setVisible(true);
 			}
 		});
 		btnAddPerson.setBounds(10, 11, 89, 23);
-		frame.getContentPane().add(btnAddPerson);
+		getFrame().getContentPane().add(btnAddPerson);
 
 		JButton btnLoadData = new JButton("Load data");
 		btnLoadData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				fs = new FileSystem();
-				try {
-					addressBook = fs.readFile();
-					for (int i = 0; i < addressBook.getPersonList().size(); i++) {
-
-						table.getModel().setValueAt(addressBook.getPersonList().get(i).getFirstName(), i, 0);
-						table.getModel().setValueAt(addressBook.getPersonList().get(i).getLastName(), i, 1);
-						table.getModel().setValueAt(addressBook.getPersonList().get(i).getAddress(), i, 2);
-						table.getModel().setValueAt(addressBook.getPersonList().get(i).getCountry(), i, 3);
-						table.getModel().setValueAt(addressBook.getPersonList().get(i).getPhone(), i, 4);
-
-					}
-
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				loadData();
 			}
 		});
 		btnLoadData.setBounds(10, 204, 124, 23);
-		frame.getContentPane().add(btnLoadData);
+		getFrame().getContentPane().add(btnLoadData);
 
 		JButton btnSortByCountries = new JButton("Sort by countries");
 		btnSortByCountries.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addressBook.sortByCountry();
-				for (int i = 0; i < addressBook.getPersonList().size(); i++) {
-
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getFirstName(), i, 0);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getLastName(), i, 1);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getAddress(), i, 2);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getCountry(), i, 3);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getPhone(), i, 4);
-
-				}
+				loadData();
 			}
 		});
 		btnSortByCountries.setBounds(10, 252, 124, 23);
-		frame.getContentPane().add(btnSortByCountries);
+		getFrame().getContentPane().add(btnSortByCountries);
 		
-		JButton btnNewButton = new JButton("Sort by names");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btnSortByNames = new JButton("Sort by names");
+		btnSortByNames.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addressBook.sortByName();
-				for (int i = 0; i < addressBook.getPersonList().size(); i++) {
-
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getFirstName(), i, 0);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getLastName(), i, 1);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getAddress(), i, 2);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getCountry(), i, 3);
-					table.getModel().setValueAt(addressBook.getPersonList().get(i).getPhone(), i, 4);
-
-				}
+				loadData();
 			}
 		});
-		btnNewButton.setBounds(10, 286, 124, 23);
-		frame.getContentPane().add(btnNewButton);
+		btnSortByNames.setBounds(10, 286, 124, 23);
+		getFrame().getContentPane().add(btnSortByNames);
 
 		//
 
 	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	public void loadData(){
+		for (int i = 0; i < addressBook.getPersonList().size(); i++) {
+
+			table.getModel().setValueAt(addressBook.getPersonList().get(i).getFirstName(), i, 0);
+			table.getModel().setValueAt(addressBook.getPersonList().get(i).getLastName(), i, 1);
+			table.getModel().setValueAt(addressBook.getPersonList().get(i).getAddress(), i, 2);
+			table.getModel().setValueAt(addressBook.getPersonList().get(i).getCountry(), i, 3);
+			table.getModel().setValueAt(addressBook.getPersonList().get(i).getPhone(), i, 4);
+
+		}
+	}
+
 }

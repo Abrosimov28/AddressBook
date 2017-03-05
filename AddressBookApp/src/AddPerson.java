@@ -1,6 +1,3 @@
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -8,10 +5,12 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.io.IOException;
+
 import java.awt.event.ActionEvent;
 
-public class addPerson extends JFrame {
+public class AddPerson extends JFrame {
+
 
 	private JPanel contentPane;
 	private JTextField firstName;
@@ -19,35 +18,14 @@ public class addPerson extends JFrame {
 	private JTextField address;
 	private JTextField country;
 	private JTextField phone;
-	//private AddressBookGUI abg;
-	
-	/**
-	 * Launch the application.
-	 */
 	private AddressBook addressBook;
 	
-	addPerson (AddressBook addressBook){
-
-		this.addressBook = addressBook;		
-	}
-	
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					addPerson frame = new addPerson();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
 
 	/**
 	 * Create the frame.
 	 */
-	public addPerson() {
+	public AddPerson(AddressBook addressBook) {
+		this.addressBook = addressBook;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -104,9 +82,19 @@ public class addPerson extends JFrame {
 		btnAddPerson.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				addressBook.addPerson(firstName.getText(), lastName.getText(),address.getText(),country.getText(),phone.getText());
+				try {
+					FileSystem fs = new FileSystem();
+					fs.writeFile(new Person(firstName.getText(), lastName.getText(),address.getText(),country.getText(),phone.getText()));
+					AddressBookGUI adg = new AddressBookGUI(addressBook);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		});
 		btnAddPerson.setBounds(306, 208, 89, 23);
 		contentPane.add(btnAddPerson);
 	}
+
 }
