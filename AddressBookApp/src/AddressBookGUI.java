@@ -13,11 +13,13 @@ import javax.swing.table.DefaultTableModel;
 public class AddressBookGUI {
 
 	private JFrame frame;
+	private DefaultTableModel model;
 
 	private AddPerson frameAdd;
 	private AddressBook addressBook;
 	private FileSystem fs;
 	private JTable table;
+	private String[] column_names = {"First name","Last name","Country","Address","Phone"};
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -48,6 +50,10 @@ public class AddressBookGUI {
 		
 		initialize();
 	}
+	
+	public String getColumnName(int index){
+		return column_names[index];
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
@@ -69,14 +75,24 @@ public class AddressBookGUI {
 		scrollPane.setBounds(0, 0, 420, 414);
 		panel.add(scrollPane);
 
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"First Name", "Last Name", "Address", "Country", "Phone"
-			}
-		));
+		// table = new JTable();
+//		table.setModel(new DefaultTableModel(
+//			new Object[][] {
+//			},
+//			new String[] {
+//				"First Name", "Last Name", "Address", "Country", "Phone"
+//			}
+//		));
+		 model = new DefaultTableModel (column_names,0) {
+		};
+		//	DefaultTableModel model = (DefaultTableModel) table.getModel();
+		model.setColumnCount(5);
+	//	model.setRowCount(5);
+		table = new JTable(model);
+//		for (int i = 0; i<5 ; i++)
+//			model.col
+
+		
 		scrollPane.setViewportView(table);
 
 		JButton btnAddPerson = new JButton("Add person");
@@ -144,7 +160,7 @@ public class AddressBookGUI {
 	
 	public void loadData(){
 		for (int i = 0; i < addressBook.getPersonList().size(); i++) {
-		//	table.set(addressBook.getPersonList().size());
+			model.setRowCount(addressBook.getPersonList().size());
 			table.getModel().setValueAt(addressBook.getPersonList().get(i).getFirstName(), i, 0);
 			table.getModel().setValueAt(addressBook.getPersonList().get(i).getLastName(), i, 1);
 			table.getModel().setValueAt(addressBook.getPersonList().get(i).getAddress(), i, 2);
