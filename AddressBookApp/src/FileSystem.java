@@ -1,5 +1,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,6 +42,45 @@ public class FileSystem {
 		pw.println(person.getPhone());
 
 		pw.close();
+		fw.close();
+		pw.close();
+	}
+	
+	public void deletePerson(Person person) throws IOException{
+		File write = new File("Temp.txt");
+		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
+		BufferedWriter bw = new BufferedWriter(new FileWriter(write));
+		PrintWriter pw = new PrintWriter(bw);
+		String[] entry = new String[5];
+		
+		while ((entry[0] = br.readLine()) != null
+						&&  (entry[1] = br.readLine()) != null
+						&&	(entry[2] = br.readLine()) != null
+						&&	(entry[3] = br.readLine()) != null
+						&&	(entry[4] = br.readLine()) != null){
+			if (entry[0].equalsIgnoreCase(person.getFirstName())
+					&& (entry[1].equalsIgnoreCase(person.getLastName()))
+					&& (entry[2].equalsIgnoreCase(person.getAddress()))
+					&& (entry[3].equalsIgnoreCase(person.getCountry()))
+					&& (entry[4].equalsIgnoreCase(person.getPhone()))){
+						System.out.println("deleted");
+			}else{
+				pw.println(entry[0]);
+				pw.println(entry[1]);
+				pw.println(entry[2]);
+				pw.println(entry[3]);
+				pw.println(entry[4]);
+			}
+		}
+	//	read.delete();
+		br.close();
+		bw.close();
+		pw.close();
+		File f = new File (FILENAME);
+		f.delete();
+		write.renameTo(new File(FILENAME));
+
+
 	}
 
 }

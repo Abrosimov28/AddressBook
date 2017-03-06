@@ -71,10 +71,12 @@ public class AddressBookGUI {
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(
-				new Object[][] { { null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, { null, null, null, null, null },
-						{ null, null, null, null, null }, },
-				new String[] { "First Name", "Last Name", "Address", "Country", "Phone" }));
+			new Object[][] {
+			},
+			new String[] {
+				"First Name", "Last Name", "Address", "Country", "Phone"
+			}
+		));
 		scrollPane.setViewportView(table);
 
 		JButton btnAddPerson = new JButton("Add person");
@@ -85,13 +87,14 @@ public class AddressBookGUI {
 				frameAdd.setVisible(true);
 			}
 		});
-		btnAddPerson.setBounds(10, 11, 89, 23);
+		btnAddPerson.setBounds(10, 11, 124, 23);
 		getFrame().getContentPane().add(btnAddPerson);
 
 		JButton btnLoadData = new JButton("Load data");
 		btnLoadData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				loadData();
+				
 			}
 		});
 		btnLoadData.setBounds(10, 204, 124, 23);
@@ -116,6 +119,20 @@ public class AddressBookGUI {
 		});
 		btnSortByNames.setBounds(10, 286, 124, 23);
 		getFrame().getContentPane().add(btnSortByNames);
+		
+		JButton btnDeletePerson = new JButton("Delete person");
+		btnDeletePerson.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if (table.getSelectedRow()>=0){
+						deleteData(table.getSelectedRow());
+						addressBook.removePerson(table.getSelectedRow());
+				}
+				
+				
+			}
+		});
+		btnDeletePerson.setBounds(10, 56, 124, 23);
+		frame.getContentPane().add(btnDeletePerson);
 
 		//
 
@@ -127,7 +144,7 @@ public class AddressBookGUI {
 	
 	public void loadData(){
 		for (int i = 0; i < addressBook.getPersonList().size(); i++) {
-
+		//	table.set(addressBook.getPersonList().size());
 			table.getModel().setValueAt(addressBook.getPersonList().get(i).getFirstName(), i, 0);
 			table.getModel().setValueAt(addressBook.getPersonList().get(i).getLastName(), i, 1);
 			table.getModel().setValueAt(addressBook.getPersonList().get(i).getAddress(), i, 2);
@@ -136,5 +153,12 @@ public class AddressBookGUI {
 
 		}
 	}
-
+	
+	public void deleteData(int index){
+		table.getModel().setValueAt(null, index, 0);
+		table.getModel().setValueAt(null, index, 1);
+		table.getModel().setValueAt(null, index, 2);
+		table.getModel().setValueAt(null, index, 3);
+		table.getModel().setValueAt(null, index, 4);
+	}
 }

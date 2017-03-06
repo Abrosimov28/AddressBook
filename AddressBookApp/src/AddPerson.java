@@ -86,6 +86,7 @@ public class AddPerson extends JFrame {
 					FileSystem fs = new FileSystem();
 					fs.writeFile(new Person(firstName.getText(), lastName.getText(),address.getText(),country.getText(),phone.getText()));
 					AddressBookGUI adg = new AddressBookGUI(addressBook);
+					adg.loadData();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
