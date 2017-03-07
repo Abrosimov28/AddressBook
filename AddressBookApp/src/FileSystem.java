@@ -6,6 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.FileSystems;
+import java.nio.file.Path;
 
 public class FileSystem {
 
@@ -72,13 +74,12 @@ public class FileSystem {
 				pw.println(entry[4]);
 			}
 		}
-	//	read.delete();
 		br.close();
-		bw.close();
-		pw.close();
-		File f = new File (FILENAME);
-		f.delete();
+		Path f = FileSystems.getDefault().getPath(FILENAME);
+		java.nio.file.Files.delete(f);
 		write.renameTo(new File(FILENAME));
+		pw.close();
+		bw.close();
 
 
 	}

@@ -140,8 +140,15 @@ public class AddressBookGUI {
 		btnDeletePerson.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (table.getSelectedRow()>=0){
+						try {
+							fs.deletePerson(addressBook.getPersonList().get(table.getSelectedRow()));
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
 						deleteData(table.getSelectedRow());
 						addressBook.removePerson(table.getSelectedRow());
+
 				}
 				
 				
