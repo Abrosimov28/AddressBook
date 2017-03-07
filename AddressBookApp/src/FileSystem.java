@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -77,10 +76,14 @@ public class FileSystem {
 		br.close();
 		Path f = FileSystems.getDefault().getPath(FILENAME);
 		java.nio.file.Files.delete(f);
-		write.renameTo(new File(FILENAME));
+	//	write.renameTo(new File(FILENAME));
 		pw.close();
 		bw.close();
-
+	      if(write.renameTo(new File(FILENAME))) {
+	          System.out.println("renamed");
+	       } else {
+	          System.out.println("Error");
+	       }
 
 	}
 

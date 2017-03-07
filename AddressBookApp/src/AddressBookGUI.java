@@ -148,6 +148,8 @@ public class AddressBookGUI {
 						}
 						deleteData(table.getSelectedRow());
 						addressBook.removePerson(table.getSelectedRow());
+						loadData();
+
 
 				}
 				
