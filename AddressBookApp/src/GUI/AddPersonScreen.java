@@ -1,6 +1,12 @@
+package GUI;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import AddressBook.FileSystem;
+import Objects.AddressBook;
+import Objects.Person;
+
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
@@ -9,7 +15,7 @@ import java.io.IOException;
 
 import java.awt.event.ActionEvent;
 
-public class AddPerson extends JFrame {
+public class AddPersonScreen extends JFrame {
 
 
 	private JPanel contentPane;
@@ -24,8 +30,13 @@ public class AddPerson extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AddPerson(AddressBook addressBook) {
+	public AddPersonScreen(AddressBook addressBook) {
 		this.addressBook = addressBook;
+		init();
+	}
+		
+		public void init(){
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();

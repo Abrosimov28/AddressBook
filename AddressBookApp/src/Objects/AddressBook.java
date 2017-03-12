@@ -1,12 +1,15 @@
+package Objects;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import AddressBook.FlexibleComparator;
 
 public class AddressBook {
 	private List<Person> personList;
 	private FlexibleComparator comp = new FlexibleComparator();
 	
-	AddressBook(){
+	public AddressBook(){
 		personList = new ArrayList<Person>();
 	}
 

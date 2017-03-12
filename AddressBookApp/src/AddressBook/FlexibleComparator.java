@@ -1,4 +1,7 @@
+package AddressBook;
 import java.util.Comparator;
+
+import Objects.Person;
 
 public class FlexibleComparator implements Comparator<Person> {
 	

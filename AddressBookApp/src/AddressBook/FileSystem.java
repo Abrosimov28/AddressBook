@@ -1,3 +1,4 @@
+package AddressBook;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,6 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+
+import Objects.AddressBook;
+import Objects.Person;
 
 public class FileSystem {
 
@@ -38,8 +42,8 @@ public class FileSystem {
 
 		pw.println(person.getFirstName());
 		pw.println(person.getLastName());
-		pw.println(person.getCountry());
 		pw.println(person.getAddress());
+		pw.println(person.getCountry());
 		pw.println(person.getPhone());
 
 		pw.close();
@@ -64,7 +68,6 @@ public class FileSystem {
 					&& (entry[2].equalsIgnoreCase(person.getAddress()))
 					&& (entry[3].equalsIgnoreCase(person.getCountry()))
 					&& (entry[4].equalsIgnoreCase(person.getPhone()))){
-						System.out.println("deleted");
 			}else{
 				pw.println(entry[0]);
 				pw.println(entry[1]);
@@ -79,11 +82,7 @@ public class FileSystem {
 	//	write.renameTo(new File(FILENAME));
 		pw.close();
 		bw.close();
-	      if(write.renameTo(new File(FILENAME))) {
-	          System.out.println("renamed");
-	       } else {
-	          System.out.println("Error");
-	       }
+	    write.renameTo(new File(FILENAME));
 
 	}
 

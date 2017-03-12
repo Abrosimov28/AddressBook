@@ -1,3 +1,4 @@
+package Objects;
 
 public class Person {
 	private String firstName;
@@ -6,7 +7,7 @@ public class Person {
 	private String country;
 	private String phone;
 	
-	Person(String firstName, String lastName, String address, String country, String phone){
+	public Person(String firstName, String lastName, String address, String country, String phone){
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.address = address;
