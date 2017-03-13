@@ -8,8 +8,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
-import Objects.AddressBook;
 import Objects.Person;
 
 public class FileSystem {
@@ -19,20 +20,20 @@ public class FileSystem {
 	}
 
 	private static final String FILENAME = "data.txt";
-	private AddressBook adb;
 
-	public AddressBook readFile() throws IOException {
-		adb = new AddressBook();
+
+	public List<Person> readFile() throws IOException {
+		List<Person> personList = new ArrayList<Person>();
 		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
 		String[] entry = new String[5];
 		while ((entry[0] = br.readLine()) != null) {
 			for (int i = 1; i < 5; i++) {
 				entry[i] = br.readLine();
 			}
-			adb.addPerson(entry[0], entry[1], entry[2], entry[3], entry[4]);
+			personList.add(new Person(entry[0], entry[1], entry[2], entry[3], entry[4]));
 		}
 		br.close();
-		return adb;
+		return personList;
 	}
 
 	public void writeFile(Person person) throws IOException {
@@ -79,7 +80,6 @@ public class FileSystem {
 		br.close();
 		Path f = FileSystems.getDefault().getPath(FILENAME);
 		java.nio.file.Files.delete(f);
-	//	write.renameTo(new File(FILENAME));
 		pw.close();
 		bw.close();
 	    write.renameTo(new File(FILENAME));

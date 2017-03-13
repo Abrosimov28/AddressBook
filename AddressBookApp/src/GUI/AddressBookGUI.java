@@ -1,7 +1,5 @@
 package GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -12,7 +10,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import AddressBook.FileSystem;
 import Objects.AddressBook;
 
 public class AddressBookGUI {
@@ -22,37 +19,14 @@ public class AddressBookGUI {
 
 	private AddPersonScreen frameAdd;
 	private AddressBook addressBook;
-	private FileSystem fs;
 	private JTable table;
 	private String[] column_names = { "First name", "Last name", "Address", "Country",  "Phone" };
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AddressBookGUI window = new AddressBookGUI();
-					window.getFrame().setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	/**
-	 * Create the application.
-	 * 
-	 * @throws IOException
-	 */
-	public AddressBookGUI() throws IOException {
-		fs = new FileSystem();
-		addressBook = fs.readFile();
-		initialize();
-	}
 
-	public AddressBookGUI(AddressBook addressBook) throws IOException {
-		fs = new FileSystem();
-		addressBook = new AddressBook();
+
+	public AddressBookGUI(AddressBook addressBook) {
+		this.addressBook = addressBook;
 		initialize();
 	}
 
@@ -137,12 +111,7 @@ public class AddressBookGUI {
 		btnDeletePerson.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (table.getSelectedRow() >= 0) {
-					try {
-						fs.deletePerson(addressBook.getPersonList().get(table.getSelectedRow()));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					addressBook.deletePersonFromFile(addressBook.getPersonList().get(table.getSelectedRow()));
 					deleteData(table.getSelectedRow());
 					addressBook.removePerson(table.getSelectedRow());
 					loadData();
@@ -155,8 +124,7 @@ public class AddressBookGUI {
 		frame.getContentPane().add(btnDeletePerson);
 	}
 	
-	private void initialize() throws IOException {
-		addressBook = fs.readFile();
+	private void initialize() {
 		frame = new JFrame("Address book");
 		getFrame().setBounds(100, 100, 751, 514);
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
