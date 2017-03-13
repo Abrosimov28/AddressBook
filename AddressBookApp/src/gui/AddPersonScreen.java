@@ -1,12 +1,12 @@
-package GUI;
+package gui;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import AddressBook.FileSystem;
-import Objects.AddressBook;
-import Objects.Person;
+import addressbook.FileSystem;
+import entities.AddressBook;
+import entities.Person;
 
 import javax.swing.JTextField;
 import javax.swing.JLabel;

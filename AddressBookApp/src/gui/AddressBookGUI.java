@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
@@ -10,7 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
 
-import Objects.AddressBook;
+import entities.AddressBook;
 
 public class AddressBookGUI {
 

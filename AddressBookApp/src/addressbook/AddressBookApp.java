@@ -1,9 +1,9 @@
-package AddressBook;
+package addressbook;
 
 import java.io.IOException;
 
-import GUI.AddressBookGUI;
-import Objects.AddressBook;
+import gui.AddressBookGUI;
+import entities.AddressBook;
 
 public class AddressBookApp {
 

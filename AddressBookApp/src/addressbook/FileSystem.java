@@ -1,4 +1,4 @@
-package AddressBook;
+package addressbook;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import Objects.Person;
+import entities.Person;
 
 public class FileSystem {
 

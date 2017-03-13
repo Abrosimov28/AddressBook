@@ -1,10 +1,11 @@
-package Objects;
+package entities;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import AddressBook.FileSystem;
-import AddressBook.FlexibleComparator;
+import addressbook.FileSystem;
+import addressbook.FlexibleComparator;
+import addressbook.FlexibleComparator.sortBy;
 
 public class AddressBook {
 	private List<Person> personList;
@@ -57,13 +58,18 @@ public class AddressBook {
 	}
 	
 	public void sortByCountry(){
-		comp.setSortBy("Country");
+		comp.setSortBy(sortBy.COUNTRY);
 		Collections.sort(personList, comp);
 	}
 	
 	public void sortByName(){
-		comp.setSortBy("Name");
+		comp.setSortBy(sortBy.NAME);
 		Collections.sort(personList, comp);
 	}
 	
 }
+
+
+
+// interface 
+// enum male/fi
