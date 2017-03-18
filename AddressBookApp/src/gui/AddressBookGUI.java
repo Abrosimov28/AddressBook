@@ -130,14 +130,14 @@ public class AddressBookGUI {
 		getFrame().setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getFrame().getContentPane().setLayout(null);
 		getFrame().setVisible(true);
-		
-		initTable();
-		initPanel();
 		initButtonAddPerson();
 		initButtonLoadData();
 		initButtonSortByCountries();
 		initButtonSortByNames();
 		initButtonDeletePerson();
+
+		initTable();
+		initPanel();
 
 	}
 

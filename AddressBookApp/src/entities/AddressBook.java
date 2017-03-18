@@ -1,19 +1,19 @@
 package entities;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import addressbook.FileSystem;
 import addressbook.FlexibleComparator;
 import addressbook.FlexibleComparator.sortBy;
 
 public class AddressBook {
 	private List<Person> personList;
 	private FlexibleComparator comp = new FlexibleComparator();
-	private FileSystem fileSystem;
+	private FileSystemPerson fileSystem;
 	
 	public AddressBook() throws IOException{
-		fileSystem = new FileSystem();
+		fileSystem = new FileSystemPerson();
 		personList = fileSystem.readFile();
 	}
 
@@ -21,13 +21,13 @@ public class AddressBook {
 		return personList;
 	}
 
-	public void setPersonList(List<Person> personList) {
+	public void setPersonList(ArrayList<Person> personList) {
 		this.personList = personList;
 	}
 	
-	public void addPerson(String firstName, String lastName, 
-			String address, String country, String phone){
-		personList.add(new Person(firstName, lastName, address, country, phone));
+	public void addPerson(Person person) throws IOException{
+		personList.add(person);
+		fileSystem.writeFile(person);
 	}
 	
 	public void updatePerson(int index, String address, String country, String phone){

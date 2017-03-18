@@ -24,3 +24,14 @@ public class FlexibleComparator implements Comparator<Person> {
 	
 	
 }
+
+// FileSystemPersonDAO
+// PersonDAO
+
+
+// abstrakne triedy
+// musim overridovat iba metody co su abstrakt
+
+// design pattern builder pattern
+// abstrakna trieda je iba jedna
+// 

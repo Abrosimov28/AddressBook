@@ -1,4 +1,4 @@
-package addressbook;
+package entities;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,16 +13,17 @@ import java.util.List;
 
 import entities.Person;
 
-public class FileSystem {
+public class FileSystemPerson implements FileSystemPersonDAO<Person>{
 
-	public FileSystem() {
-
+	public FileSystemPerson() {
+		
 	}
 
 	private static final String FILENAME = "data.txt";
 
 
-	public List<Person> readFile() throws IOException {
+	@Override
+	public ArrayList<Person> readFile() throws IOException {
 		List<Person> personList = new ArrayList<Person>();
 		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
 		String[] entry = new String[5];
@@ -33,9 +34,10 @@ public class FileSystem {
 			personList.add(new Person(entry[0], entry[1], entry[2], entry[3], entry[4]));
 		}
 		br.close();
-		return personList;
+		return (ArrayList) personList;
 	}
 
+	@Override
 	public void writeFile(Person person) throws IOException {
 		FileWriter fw = new FileWriter(FILENAME, true);
 		BufferedWriter bw = new BufferedWriter(fw);
@@ -52,6 +54,7 @@ public class FileSystem {
 		pw.close();
 	}
 	
+	@Override
 	public void deletePerson(Person person) throws IOException{
 		File write = new File("Temp.txt");
 		BufferedReader br = new BufferedReader(new FileReader(FILENAME));

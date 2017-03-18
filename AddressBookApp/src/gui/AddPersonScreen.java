@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import addressbook.FileSystem;
 import entities.AddressBook;
 import entities.Person;
 
@@ -12,7 +11,7 @@ import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 
 public class AddPersonScreen extends JFrame {
@@ -53,12 +52,18 @@ public class AddPersonScreen extends JFrame {
 		JButton btnAddPerson = new JButton("Add person");
 		btnAddPerson.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				addressBook.addPerson(firstName.getText(), lastName.getText(), address.getText(), country.getText(),
-						phone.getText());
-				addressBook.writePersonIntoFile(new Person(firstName.getText(), lastName.getText(), address.getText(),
-						country.getText(), phone.getText()));
+				Person person = new Person(firstName.getText(), lastName.getText(), address.getText(), country.getText(),
+							phone.getText());
+				try {
+					addressBook.addPerson(person);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				addressBook.writePersonIntoFile(person);
 
 				AddressBookGUI addressBookGUI = null;
+				setVisible(false);
 				addressBookGUI = new AddressBookGUI(addressBook);
 				addressBookGUI.loadData();
 
