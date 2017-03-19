@@ -1,4 +1,4 @@
-package entities;
+package daos;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,9 +13,9 @@ import java.util.List;
 
 import entities.Person;
 
-public class FileSystemPerson implements FileSystemPersonDAO<Person>{
+public class FileSystemPersonDAO implements PersonDAO{
 
-	public FileSystemPerson() {
+	public FileSystemPersonDAO() {
 		
 	}
 
@@ -23,7 +23,7 @@ public class FileSystemPerson implements FileSystemPersonDAO<Person>{
 
 
 	@Override
-	public ArrayList<Person> readFile() throws IOException {
+	public List<Person> loadPerson() throws IOException {
 		List<Person> personList = new ArrayList<Person>();
 		BufferedReader br = new BufferedReader(new FileReader(FILENAME));
 		String[] entry = new String[5];
@@ -34,7 +34,7 @@ public class FileSystemPerson implements FileSystemPersonDAO<Person>{
 			personList.add(new Person(entry[0], entry[1], entry[2], entry[3], entry[4]));
 		}
 		br.close();
-		return (ArrayList) personList;
+		return personList;
 	}
 
 	@Override
@@ -62,6 +62,9 @@ public class FileSystemPerson implements FileSystemPersonDAO<Person>{
 		PrintWriter pw = new PrintWriter(bw);
 		String[] entry = new String[5];
 		
+		// loop will go through all Person objects in the file
+		// if the found Person is the same as Person we are looking for, skip the writing of the person into temp file
+		// else write the person into temp file
 		while ((entry[0] = br.readLine()) != null
 						&&  (entry[1] = br.readLine()) != null
 						&&	(entry[2] = br.readLine()) != null

@@ -5,8 +5,8 @@ import entities.Person;
 
 public class FlexibleComparator implements Comparator<Person> {
 	
-	public enum sortBy {NAME, COUNTRY};
-	private sortBy sb;
+	public enum SortBy {NAME, COUNTRY};
+	private SortBy sb;
 	
 	
 	@Override
@@ -18,7 +18,7 @@ public class FlexibleComparator implements Comparator<Person> {
 		throw new RuntimeException("Practically unreachable code, can't be thrown");
 	}
 	
-	public void setSortBy(sortBy sortBy){
+	public void setSortBy(SortBy sortBy){
 		this.sb = sortBy;
 	}
 	

@@ -5,16 +5,18 @@ import java.util.Collections;
 import java.util.List;
 
 import addressbook.FlexibleComparator;
-import addressbook.FlexibleComparator.sortBy;
+import addressbook.FlexibleComparator.SortBy;
+import daos.FileSystemPersonDAO;
+import daos.PersonDAO;
 
 public class AddressBook {
 	private List<Person> personList;
 	private FlexibleComparator comp = new FlexibleComparator();
-	private FileSystemPerson fileSystem;
+	private PersonDAO personDAO;
 	
 	public AddressBook() throws IOException{
-		fileSystem = new FileSystemPerson();
-		personList = fileSystem.readFile();
+		personDAO = new FileSystemPersonDAO();
+		personList = personDAO.loadPerson();
 	}
 
 	public List<Person> getPersonList() {
@@ -27,7 +29,7 @@ public class AddressBook {
 	
 	public void addPerson(Person person) throws IOException{
 		personList.add(person);
-		fileSystem.writeFile(person);
+		personDAO.writeFile(person);
 	}
 	
 	public void updatePerson(int index, String address, String country, String phone){
@@ -38,7 +40,7 @@ public class AddressBook {
 	
 	public void deletePersonFromFile(Person person){
 		try {
-			fileSystem.deletePerson(person);
+			personDAO.deletePerson(person);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -58,18 +60,16 @@ public class AddressBook {
 	}
 	
 	public void sortByCountry(){
-		comp.setSortBy(sortBy.COUNTRY);
+		comp.setSortBy(SortBy.COUNTRY);
 		Collections.sort(personList, comp);
 	}
 	
 	public void sortByName(){
-		comp.setSortBy(sortBy.NAME);
+		comp.setSortBy(SortBy.NAME);
 		Collections.sort(personList, comp);
+		
 	}
 	
 }
 
 
-
-// interface 
-// enum male/fi
