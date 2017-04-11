@@ -26,7 +26,9 @@ public class DatabaseSystemPersonDAO implements PersonDAO {
 		sf = con.buildSessionFactory();
 		session = sf.openSession();
 		tx = session.beginTransaction();
+		
 		list = session.createCriteria(Person.class).list();
+		
 		tx.commit();
 		return list;
 	}
@@ -37,13 +39,24 @@ public class DatabaseSystemPersonDAO implements PersonDAO {
 		sf = con.buildSessionFactory();
 		session = sf.openSession();
 		tx = session.beginTransaction();
+		
 		session.save(person);
+		
 		tx.commit();
 	}
 
 	@Override
 	public void deletePerson(Person person) throws IOException {
-		// TODO Auto-generated method stub
+		con = new Configuration().configure().addAnnotatedClass(Person.class);
+		sf = con.buildSessionFactory();
+		session = sf.openSession();
+		tx = session.beginTransaction();
+		
+		if (person != null) {
+			session.delete(person);
+		}
+		
+		tx.commit();
 		
 	}
 	
