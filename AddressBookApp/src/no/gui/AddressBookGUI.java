@@ -1,16 +1,17 @@
-package gui;
+package no.gui;
 
-import javax.swing.JFrame;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.awt.event.ActionEvent;
-import javax.swing.JTable;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-import entities.AddressBook;
+import no.entities.AddressBook;
 
 public class AddressBookGUI {
 

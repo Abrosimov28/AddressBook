@@ -1,4 +1,4 @@
-package daos;
+package no.daos;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,7 +11,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-import entities.Person;
+import no.entities.Person;
 
 public class FileSystemPersonDAO implements PersonDAO{
 
@@ -38,7 +38,7 @@ public class FileSystemPersonDAO implements PersonDAO{
 	}
 
 	@Override
-	public void writeFile(Person person) throws IOException {
+	public void savePerson(Person person) throws IOException {
 		FileWriter fw = new FileWriter(FILENAME, true);
 		BufferedWriter bw = new BufferedWriter(fw);
 		PrintWriter pw = new PrintWriter(bw);

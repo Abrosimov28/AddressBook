@@ -1,11 +1,17 @@
-package entities;
+package no.entities;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Person {
 	private String firstName;
+	@Id
 	private String lastName;
 	private String address;
 	private String country;
 	private String phone;
+	
 	
 	public Person(String firstName, String lastName, String address, String country, String phone){
 		this.firstName = firstName;

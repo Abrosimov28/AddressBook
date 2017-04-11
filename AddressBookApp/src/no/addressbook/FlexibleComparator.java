@@ -1,7 +1,7 @@
-package addressbook;
+package no.addressbook;
 import java.util.Comparator;
 
-import entities.Person;
+import no.entities.Person;
 
 public class FlexibleComparator implements Comparator<Person> {
 	
